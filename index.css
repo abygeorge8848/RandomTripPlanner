@@ -1,21 +1,127 @@
-#mapid { height: 300px; }
-        .input-group-text {
-            background: #007bff;
-            color: white;
-            border: 0;
-        }
-        footer {
-            background-color: #007bff;
-            color: white;
-            text-align: center;
-            padding: 10px;
-            position: relative;
-            bottom: 0;
-            width: 100%;
-        }
-        .navbar-brand, .nav-link {
-            color: #fff !important;
-        }
-        .card-columns {
-            column-count: 3;
-        }
+body, html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+.main-container {
+    display: flex;
+    height: 100vh; /* Full viewport height */
+}
+
+#contentContainer {
+    display: flex;
+    flex-direction: column;
+    width: 50%; /* Adjust this value if needed */
+}
+
+.container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Align content to the top */
+    align-items: center; /* Center content horizontally */
+    padding-top: 20px;
+    margin-bottom: 40px;
+}
+
+.search-area {
+    width: 100%; /* Use 100% of the container width */
+    max-width: 500px; /* Max width for larger screens */
+    padding: 0 15px; /* Add some padding on smaller screens */
+    box-sizing: border-box; /* Include padding in the element's total width and height */
+}
+
+#mapid {
+    height: 100vh; /* Full height */
+    width: 100%; /* Full width */
+}
+
+#mapContainer {
+    flex-grow: 1;
+    width: 50%; /* Ensures the map container takes up the remaining space */
+}
+
+.input-group-text {
+    background: #007bff;
+    color: white;
+    border: 0;
+}
+
+footer {
+    background-color: #007bff;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    width: 100%;
+}
+
+.navbar-brand, .nav-link {
+    color: #fff !important;
+}
+
+.date-inputs-container {
+    display: flex;
+    align-items: center; /* Vertically center the items */
+    justify-content: space-between; /* Distribute space evenly */
+    gap: 10px; /* Add some space between elements */
+}
+
+.form-control {
+    flex-grow: 1; /* Allow the date inputs to fill the available space */
+    margin: 0; /* Reset margin for alignment */
+}
+
+.date-range-separator {
+    /* Center the arrow icon */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20px; /* Control the width of the separator */
+}
+
+
+.custom-range {
+    width: 100%;
+    padding: 5px 0;
+    cursor: pointer;
+    -webkit-appearance: none; /* Override default CSS styles */
+    appearance: none;
+    height: 10px; /* Set a specific height */
+    border-radius: 5px; /* Rounded corners */
+    background: #007bff;
+    outline: none; /* Remove outline */
+    opacity: 0.7; /* Set transparency (cross-browser) */
+    transition: opacity .2s; /* Smooth transition */
+}
+
+.custom-range:hover {
+    opacity: 1; /* Fully opaque on hover */
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+#budgetDisplay {
+    text-align: left;
+    margin-top: -10px;
+}
+
+.input-group, .form-control, .custom-range, button {
+    width: 100%; /* Ensure elements fill the container */
+    margin: 10px 0; /* Add some margin for spacing */
+}
+
+@media (min-width: 768px) {
+    .main-container {
+        flex-direction: row; /* Ensures side-by-side layout for content and map */
+    }
+
+    #contentContainer, #mapContainer {
+        height: 100vh;
+        flex: 1; /* This ensures both containers take up equal space */
+    }
+}
