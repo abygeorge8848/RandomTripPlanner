@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random TravelApp</title>
+    <link href="https://unpkg.com/leaflet/dist/leaflet.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/index.css') }}" rel="stylesheet">
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</head>
+<body>
+
+<div class="main-container">
+    <div id="contentContainer">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <a class="navbar-brand" href="#">Random TravelApp</a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('about') }}">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="container mt-5 d-flex justify-content-between">
+            <div class="d-flex flex-column align-items-start">
+                <h3>Search for a Destination:</h3>
+                <div class="input-group mb-3">
+                    <input type="text" id="searchInput" class="form-control" placeholder="Enter a location" aria-label="Location search input">
+                    <div class="input-group-append">
+                        <button id="searchDestinationsBtn" class="btn btn-primary"><i class="fas fa-search"></i></button>
+                    </div>
+                </div>
+
+                <h4>Filter Your Search:</h4>
+                <div class="input-group mb-3">
+                    <!-- <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                    </div> -->
+                    <div class="date-inputs-container">
+                        <input type="date" id="startDate" class="form-control" placeholder="Start Date">
+                        <span class="date-range-separator"><i class="fas fa-arrow-right"></i></span>
+                        <input type="date" id="endDate" class="form-control" placeholder="End Date">
+                    </div>                                       
+                </div>
+            
+                <label for="budgetRange">Budget (in INR):</label>
+                <input type="range" id="budgetRange" class="custom-range mb-3" min="0" max="5000" step="50" oninput="budgetDisplay.innerHTML = 'Rs.' + this.value">
+                <p id="budgetDisplay">Rs.2500</p>        
+            
+                <button class="btn btn-primary" id="searchDestinationsBtn">Search Destinations</button>
+            </div>
+        </div>
+
+        <footer>
+            © 2024 Random TravelApp. All Rights Reserved.
+        </footer>
+    </div>
+
+    <div id="mapContainer">
+        <div id="mapid"></div>
+    </div>
+</div>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<!-- Leaflet Control Geocoder -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+<script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Load jQuery -->
+<script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script> <!-- Load daterangepicker -->
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js"></script>
+<!-- <script src="./script.js"></script> -->
+</body>
+</html>
