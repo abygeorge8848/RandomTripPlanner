@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random TravelApp</title>
+    <link href="https://unpkg.com/leaflet/dist/leaflet.css" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
+    <link href="./index.css" rel="stylesheet">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" href="#">TravelApp</a>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="./about.html">About</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Contact</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container mt-5">
+    <h3>Search for a Destination:</h3>
+    <div class="input-group mb-3">
+        <input type="text" id="searchInput" class="form-control" placeholder="Enter a location" aria-label="Location search input">
+        <div class="input-group-append">
+            <span class="input-group-text"><i class="fas fa-search"></i></span>
+        </div>
+    </div>
+    <div id="mapid"></div>
+    
+    <h4 class="mt-5">Filter Your Search:</h4>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="input-group mb-3">
+                <input type="number" class="form-control" placeholder="Duration" aria-label="Duration in days">
+                <div class="input-group-append">
+                    <span class="input-group-text">days</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="input-group mb-3">
+                <input type="number" class="form-control" placeholder="Budget" aria-label="Budget in dollars">
+                <div class="input-group-append">
+                    <span class="input-group-text">$</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <button class="btn btn-primary btn-block" id="searchDestinationsBtn">Search Destinations</button>
+        </div>
+    </div>
+    
+    <div id="results" class="mt-5"></div>
+</div>
+
+<footer>
+    © 2024 Random TravelApp. All Rights Reserved.
+</footer>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js"></script>
+<script src="./script.js"></script>
+</body>
+</html>
