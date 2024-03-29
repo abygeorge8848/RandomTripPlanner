@@ -3,20 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Random TravelApp</title>
+    <title>Itinerary</title>
     <link href="https://unpkg.com/leaflet/dist/leaflet.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
-    <link href="{{ url_for('static', filename='css/index.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/itinerary.css') }}" rel="stylesheet">
     
 </head>
 <body>
-
-    <div id="loadingIndicator" style="display: none;">
-        <img src="{{ url_for('static', filename='images/loading.gif') }}" alt="Loading...">
-    </div>
-
 <div class="main-container">
     <div id="contentContainer">
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -24,7 +19,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="#">Home</a>
+                        <a class="nav-link" href="{{ url_for('home') }}">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('about') }}">About</a>
@@ -38,31 +33,14 @@
 
         <div class="container mt-5 d-flex justify-content-between">
             <div class="d-flex flex-column align-items-start">
-                <h3>Search for a Destination:</h3>
-                <div class="input-group mb-3">
-                    <input type="text" id="searchInput" class="form-control" placeholder="Where to boss?" aria-label="Location search input">
-                    <div class="input-group-append">
-                        <button id="searchDestinationsBtn" class="btn btn-primary"><i class="fas fa-search"></i></button>
+                
+                <div class="container mt-5">
+                    <h2>Itinerary</h2>
+                    <div id="attractionsContainer" class="list-group">
+                        <!-- Attractions will be injected here -->
                     </div>
                 </div>
-
-                <h5>Enter your dates:</h5>
-                <div class="input-group mb-3">
-                    <!-- <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
-                    </div> -->
-                    <div class="date-inputs-container">
-                        <input type="date" id="startDate" class="form-control" placeholder="Start Date">
-                        <span class="date-range-separator"><i class="fas fa-arrow-right"></i></span>
-                        <input type="date" id="endDate" class="form-control" placeholder="End Date">
-                    </div>                                       
-                </div>
-            
-                <label for="budgetRange">Budget (in INR):</label>
-                <input type="range" id="budgetRange" class="custom-range mb-3" min="0" max="10000" step="100" oninput="budgetDisplay.innerHTML = 'Rs.' + this.value">
-                <p id="budgetDisplay">Rs.5000</p>        
-            
-                <button class="btn btn-primary" id="searchDestinationsBtnFinal">Search Destinations</button>
+                
             </div>
         </div>
 
@@ -86,7 +64,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js"></script>
-<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+<script src="{{ url_for('static', filename='js/itinerary.js') }}"></script>
 <!-- <script src="./script.js"></script> -->
 </body>
 </html>

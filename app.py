@@ -1,9 +1,13 @@
 from flask import Flask, request, jsonify, render_template
 import sqlite3
 import requests
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
+
+attractions_data = []
 # Function to query the database for attractions
 def query_attractions(destination, duration, budget):
     conn = sqlite3.connect('your_database.db')
@@ -76,6 +80,23 @@ def home():
 @app.route('/about')
 def about():
     return render_template('about.html')
+
+@app.route('/itinerary')
+def attractions():
+    return render_template('itinerary.html')
+
+
+@app.route('/store-attractions', methods=['POST'])
+def save_attractions():
+    global attractions_data
+    data = request.json
+    attractions_data = data.get('attractions', [])
+    print(f"The attractions are : {attractions_data}")
+    return jsonify({"message": "Attractions saved successfully"}), 200
+
+@app.route('/attractions', methods=['GET'])
+def get_attractions():
+    return jsonify(attractions_data), 200
 
 
 if __name__ == '__main__':

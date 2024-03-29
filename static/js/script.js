@@ -1,6 +1,16 @@
 document.addEventListener('DOMContentLoaded', function() {
     initMap();
-    document.getElementById('searchDestinationsBtn').addEventListener('click', performSearch);
+    document.getElementById('searchDestinationsBtnFinal').addEventListener('click', performSearch);
+
+    document.getElementById('searchDestinationsBtn').addEventListener('click', function() {
+        const query = document.getElementById('searchInput').value;
+        if (!query) {
+            alert('Please enter a location.');
+            return;
+        }
+        // This part assumes you have a function to handle searching and marking locations on the map
+        searchLocation(query);
+    });
 
     document.getElementById('budgetRange').oninput = function() {
         document.getElementById('budgetDisplay').innerHTML = `Rs.${this.value}`;
@@ -8,6 +18,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Initialize autocomplete for search input
     initAutocomplete();
+
+    // Initialize date range picker
+    $('input[name="dateRange"]').daterangepicker({
+        opens: 'left'
+    }, function(start, end, label) {
+        console.log("A new date range was chosen: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+    });
 });
 
 let map;
@@ -26,8 +43,29 @@ function initMap() {
 
 function performSearch() {
     const query = document.getElementById('searchInput').value;
-    searchLocation(query);
+    if (!query) {
+        alert('Please enter a location.');
+        return;
+    }
+    document.getElementById('loadingIndicator').style.display = 'flex'; // Show the loading indicator
+    geocodeLocation(query)
+        .then(coords => {
+            searchNearbyAttractions(coords).then(() => {
+                document.getElementById('loadingIndicator').style.display = 'none'; // Hide the loading indicator
+                // Redirect to the itinerary page
+                window.location.href = '/itinerary';
+            }).catch(error => {
+                console.error('Error fetching nearby attractions:', error);
+                document.getElementById('loadingIndicator').style.display = 'none'; // Hide the loading indicator
+            });
+        })
+        .catch(error => {
+            console.error('Geocoding failed:', error);
+            document.getElementById('loadingIndicator').style.display = 'none'; // Hide the loading indicator
+        });
 }
+
+
 
 function initAutocomplete() {
     const searchInput = document.getElementById('searchInput');
@@ -105,39 +143,55 @@ function searchLocation(query) {
     }
 }
 
-$(function() {
-    $('input[name="dateRange"]').daterangepicker({
-        opens: 'left'
-    }, function(start, end, label) {
-        console.log("A new date range was chosen: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
-    });
-});
-
-
-document.getElementById('searchDestinationsBtn').addEventListener('click', function() {
-    const locationQuery = document.getElementById('searchInput').value;
-    if (!locationQuery) {
-        alert('Please enter a location.');
-        return;
-    }
-
-    // Use a geocoding service to find the location
-    geocodeLocation(locationQuery)
-        .then(coords => {
-            // Assuming you have a function to search for nearby attractions
-            searchNearbyAttractions(coords);
-        })
-        .catch(error => console.error('Geocoding failed:', error));
-});
-
-
 async function geocodeLocation(locationQuery) {
-    const response = await fetch(`http://localhost:5000/geocode?query=${encodeURIComponent(locationQuery)}`);
+    // Adjust the fetch URL to point to your backend endpoint
+    const response = await fetch(`/geocode?query=${encodeURIComponent(locationQuery)}`);
     const data = await response.json();
     if (data.results && data.results.length > 0) {
-        // Assuming the first result is the most relevant
+        // Assuming the OpenCage API structure and that your backend directly relays the API response
         return { lat: parseFloat(data.results[0].geometry.lat), lng: parseFloat(data.results[0].geometry.lng) };
     } else {
         throw new Error('No results found');
     }
 }
+
+
+async function searchNearbyAttractions(coords) {
+    console.log('Searching for attractions near:', coords);
+
+    const apiKey = '5ae2e3f221c38a28845f05b6078e8eb915a6d09be1eb56996d2d998b'; // Replace with your actual OpenTripMap API key
+    const radius = 10000;
+    const apiUrl = `https://api.opentripmap.com/0.1/en/places/radius?radius=${radius}&lon=${coords.lng}&lat=${coords.lat}&apikey=${apiKey}&format=json`;
+    
+    try {
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+        if (data && data.length > 0) {
+            // Send data to Flask backend
+            const flaskResponse = await fetch('http://localhost:5000/store-attractions', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({attractions: data}),
+            });
+            const flaskData = await flaskResponse.json();
+            console.log(flaskData.message); // Log the response message from Flask
+        } else {
+            console.log('No attractions found near this location.');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+
+
+
+// Placeholder for a function that adds a marker for an attraction on the map
+// You would implement this based on how your map is set up (e.g., using Leaflet, Google Maps API, etc.)
+function addAttractionMarker(attraction) {
+    const marker = L.marker([attraction.location.lat, attraction.location.lng]).addTo(map);
+    marker.bindPopup(`<b>${attraction.name}</b><br>${attraction.description}`).openPopup();
+}
+
