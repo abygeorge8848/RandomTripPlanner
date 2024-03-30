@@ -47,7 +47,7 @@ body, html {
 .input-group-text {
     background: #007bff;
     color: white;
-    border: 0;
+    
 }
 
 footer {
@@ -179,4 +179,74 @@ h2 {
 
 .align-items-start {
     align-items: flex-start;
+}
+
+.card {
+    border: none;
+    border-radius: 0;
+    background-color: #fff; /* Set card background to white */
+    box-shadow: none; /* Remove the box-shadow if you prefer a flat design */
+}
+
+.card:not(:last-of-type) {
+    border-bottom: 1px solid #ccc; /* Only add bottom border */
+}
+
+.card-header {
+    background-color: #fff; /* Match the background color of the card */
+    color: #343a40; /* Dark grey color for the text */
+    padding-left: 1.25rem; /* Adjust left padding to accommodate the ">" symbol */
+    font-weight: bold; /* Optional: makes the header text bold */
+    border: none; /* Remove borders */
+}
+
+.card-header h5 button {
+    color: #343a40; /* Text color for the accordion toggle (dark grey) */
+    text-decoration: none;
+    width: 100%;
+    text-align: left;
+    font-size: 20px; /* Increase font size for visibility */
+}
+
+.card-header h5 button:hover, .card-header h5 button:focus {
+    color: #0056b3; /* Darker shade for hover/focus states */
+    text-decoration: none;
+}
+
+.card-header h5 button:before {
+    content: "> ";
+    font-weight: bold;
+    color: #343a40; /* Keep the symbol the same color as the text */
+    margin-right: 10px; /* Space between the symbol and the text */
+}
+
+.card-header h5 button .location-icon {
+    margin-right: 5px; /* Space between the location icon and the date */
+}
+
+.card-body {
+    padding: 1rem;
+    border-top: none; /* Remove the top border */
+}
+
+.accordion .card + .card {
+    margin-top: 0; /* Remove space between cards */
+}
+
+/* Ensure consistent size for closed accordions (optional, adjust as needed) */
+.card-header, .card-body {
+    min-height: 100px; /* Set a minimum height for header and body */
+}
+
+.list-group-item {
+    transition: transform 0.3s ease;
+}
+
+.list-group-item:hover {
+    transform: scale(1.03);
+}
+
+.list-group-item-action {
+    border-radius: 0.5rem;
+    margin-bottom: 0.5rem;
 }

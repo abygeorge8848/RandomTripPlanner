@@ -42,15 +42,24 @@ function initMap() {
 }
 
 function performSearch() {
+    const startDate = document.getElementById('startDate').value;
+    const endDate = document.getElementById('endDate').value;
+    const budget = document.getElementById('budgetRange').value;
     const query = document.getElementById('searchInput').value;
     if (!query) {
         alert('Please enter a location.');
+        return;
+    } else if (!startDate){
+        alert('Please enter a start date.');
+        return;
+    } else if (!endDate){
+        alert('Please enter an end date.');
         return;
     }
     document.getElementById('loadingIndicator').style.display = 'flex'; // Show the loading indicator
     geocodeLocation(query)
         .then(coords => {
-            searchNearbyAttractions(coords).then(() => {
+            searchNearbyAttractions(coords, startDate, endDate, budget).then(() => {
                 document.getElementById('loadingIndicator').style.display = 'none'; // Hide the loading indicator
                 // Redirect to the itinerary page
                 window.location.href = '/itinerary';
@@ -156,7 +165,7 @@ async function geocodeLocation(locationQuery) {
 }
 
 
-async function searchNearbyAttractions(coords) {
+async function searchNearbyAttractions(coords, startDate, endDate, budget) {
     console.log('Searching for attractions near:', coords);
 
     const apiKey = '5ae2e3f221c38a28845f05b6078e8eb915a6d09be1eb56996d2d998b'; // Replace with your actual OpenTripMap API key
@@ -167,13 +176,18 @@ async function searchNearbyAttractions(coords) {
         const response = await fetch(apiUrl);
         const data = await response.json();
         if (data && data.length > 0) {
-            // Send data to Flask backend
+            const dataToSend = {
+                attractions: data,
+                startDate: startDate,
+                endDate: endDate,
+                budget: budget
+            };
             const flaskResponse = await fetch('http://localhost:5000/store-attractions', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({attractions: data}),
+                body: JSON.stringify(dataToSend), // Now sending the additional data along with attractions
             });
             const flaskData = await flaskResponse.json();
             console.log(flaskData.message); // Log the response message from Flask
@@ -184,8 +198,6 @@ async function searchNearbyAttractions(coords) {
         console.error('Error:', error);
     }
 }
-
-
 
 
 // Placeholder for a function that adds a marker for an attraction on the map

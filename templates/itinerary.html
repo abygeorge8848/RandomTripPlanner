@@ -9,8 +9,11 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
     <link href="{{ url_for('static', filename='css/itinerary.css') }}" rel="stylesheet">
-    
+    <!-- Leaflet Control Geocoder -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
 </head>
+
 <body>
 <div class="main-container">
     <div id="contentContainer">
@@ -35,11 +38,11 @@
             <div class="d-flex flex-column align-items-start">
                 
                 <div class="container mt-5">
-                    <h2>Itinerary</h2>
-                    <div id="attractionsContainer" class="list-group">
-                        <!-- Attractions will be injected here -->
+                    <h2>Your Itinerary! 😉</h2>
+                    <div id="accordion">
+                        <!-- Dynamically generated accordion items will go here -->
                     </div>
-                </div>
+                </div>                
                 
             </div>
         </div>
@@ -53,10 +56,9 @@
         <div id="mapid"></div>
     </div>
 </div>
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
 <!-- Leaflet Control Geocoder -->
-<link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Load jQuery -->
 <script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script> <!-- Load daterangepicker -->
