@@ -12,19 +12,40 @@ document.addEventListener('DOMContentLoaded', function() {
         searchLocation(query);
     });
 
-    document.getElementById('budgetRange').oninput = function() {
-        document.getElementById('budgetDisplay').innerHTML = `Rs.${this.value}`;
-    };
-
     // Initialize autocomplete for search input
     initAutocomplete();
 
-    // Initialize date range picker
-    $('input[name="dateRange"]').daterangepicker({
-        opens: 'left'
-    }, function(start, end, label) {
-        console.log("A new date range was chosen: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+    flatpickr("#dateRangePicker", {
+        mode: "range",
+        altInput: true,
+        altFormat: "F j, Y",
+        dateFormat: "Y-m-d",
+        onChange: function(selectedDates) {
+            if (selectedDates.length === 2) {
+                const startDate = new Date(selectedDates[0].getTime() - selectedDates[0].getTimezoneOffset() * 60000);
+                const startDateStr = startDate.toISOString().substring(0, 10);
+                const endDate = new Date(selectedDates[1].getTime() - selectedDates[1].getTimezoneOffset() * 60000);
+                const endDateStr = endDate.toISOString().substring(0, 10);
+                document.getElementById('startDate').value = startDateStr;
+                document.getElementById('endDate').value = endDateStr;
+            }
+        },
+        onReady: function(selectedDates, dateStr, instance) {
+            // Apply custom style directly or ensure it's applied
+            instance.altInput.style.backgroundImage = "url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" fill=\"%23000\" class=\"bi bi-calendar3\" viewBox=\"0 0 16 16\"><path d=\"M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z\"/></svg>')";
+            instance.altInput.style.backgroundRepeat = "no-repeat";
+            instance.altInput.style.backgroundPosition = "10px center";
+            instance.altInput.style.paddingLeft = "30px";
+        }
     });
+    var datePickerInputGroup = document.querySelector('.date-picker-input-group');
+    if (datePickerInputGroup) {
+        datePickerInputGroup.addEventListener('click', function() {
+            document.getElementById('dateRangePicker').focus();
+        });
+    } else {
+        console.log('Element with class ".date-picker-input-group" not found.');
+    }
 });
 
 let map;
@@ -44,7 +65,6 @@ function initMap() {
 function performSearch() {
     const startDate = document.getElementById('startDate').value;
     const endDate = document.getElementById('endDate').value;
-    const budget = document.getElementById('budgetRange').value;
     const query = document.getElementById('searchInput').value;
     if (!query) {
         alert('Please enter a location.');

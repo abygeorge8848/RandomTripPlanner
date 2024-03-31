@@ -209,7 +209,7 @@ h2 {
 }
 
 .card-header h5 button:hover, .card-header h5 button:focus {
-    color: #0056b3; /* Darker shade for hover/focus states */
+    color: #0056b3; 
     text-decoration: none;
 }
 
@@ -218,6 +218,12 @@ h2 {
     font-weight: bold;
     color: #343a40; /* Keep the symbol the same color as the text */
     margin-right: 10px; /* Space between the symbol and the text */
+    display: inline-block;
+    transition: transform 0.3s ease; /* Smooth transition for the rotation */
+}
+
+.rotate:before {
+    transform: rotate(90deg); /* Rotate 90 degrees when .rotate is applied */
 }
 
 .card-header h5 button .location-icon {
@@ -250,3 +256,6 @@ h2 {
     border-radius: 0.5rem;
     margin-bottom: 0.5rem;
 }
+
+
+

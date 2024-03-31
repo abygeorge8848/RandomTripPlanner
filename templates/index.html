@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <link href="{{ url_for('static', filename='css/index.css') }}" rel="stylesheet">
     
 </head>
@@ -38,30 +39,39 @@
 
         <div class="container mt-5 d-flex justify-content-between">
             <div class="d-flex flex-column align-items-start">
-                <h3>Search for a Destination:</h3>
+                <h3>Let's plan a trip!</h3>
                 <div class="input-group mb-3">
-                    <input type="text" id="searchInput" class="form-control" placeholder="Where to boss?" aria-label="Location search input">
+                    <input type="text" id="searchInput" class="form-control" placeholder="Search a destination..." aria-label="Location search input">
                     <div class="input-group-append">
                         <button id="searchDestinationsBtn" class="btn btn-primary"><i class="fas fa-search"></i></button>
                     </div>
                 </div>
 
-                <h5>Enter your dates:</h5>
-                <div class="input-group mb-3">
-                    <!-- <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
-                    </div> -->
-                    <div class="date-inputs-container">
-                        <input type="date" id="startDate" class="form-control" placeholder="Start Date">
-                        <span class="date-range-separator"><i class="fas fa-arrow-right"></i></span>
-                        <input type="date" id="endDate" class="form-control" placeholder="End Date">
-                    </div>                                       
+                <!--<h6>Enter your dates:</h6>-->                
+                <div class="input-group mb-3 date-picker-input-group">
+                    <input type="text" id="dateRangePicker" class="form-control" placeholder="Select Dates"/>
+                    <input type="hidden" id="startDate"/>
+                    <input type="hidden" id="endDate"/>
+                </div>                                                
+                
+                <!--<label for="budgetRange">Budget (in INR):</label>-->
+                <!--<input type="range" id="budgetRange" class="custom-range mb-3" min="0" max="10000" step="100" oninput="budgetDisplay.innerHTML = 'Rs.' + this.value">-->
+                <!--<p id="budgetDisplay">Rs.5000</p>-->  
+                <div class="activities-selection mb-4">
+                    <h4 class="activities-title">Select the kind of activities you want to do</h4>
+                    <div class="btn-group-toggle activities-btn-group" data-toggle="buttons">                
+                        <div class="btn-group-toggle activities-btn-group" data-toggle="buttons">
+                            <label class="btn btn-activity"><input type="checkbox" autocomplete="off"> Beach</label>
+                            <label class="btn btn-activity"><input type="checkbox" autocomplete="off"> Hiking</label>
+                            <label class="btn btn-activity"><input type="checkbox" autocomplete="off"> Shopping</label>
+                            <label class="btn btn-activity"><input type="checkbox" autocomplete="off"> Museums</label>
+                            <label class="btn btn-activity"><input type="checkbox" autocomplete="off"> Outdoor activities</label>
+                            <label class="btn btn-activity"><input type="checkbox" autocomplete="off"> Amusement Parks</label-->
+                            <!-- More buttons can be added here -->
+                        </div>
+                    </div>
                 </div>
-            
-                <label for="budgetRange">Budget (in INR):</label>
-                <input type="range" id="budgetRange" class="custom-range mb-3" min="0" max="10000" step="100" oninput="budgetDisplay.innerHTML = 'Rs.' + this.value">
-                <p id="budgetDisplay">Rs.5000</p>        
-            
+                               
                 <button class="btn btn-primary" id="searchDestinationsBtnFinal">Search Destinations</button>
             </div>
         </div>
@@ -86,6 +96,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 <!-- <script src="./script.js"></script> -->
 </body>
